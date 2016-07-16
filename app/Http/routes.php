@@ -1,16 +1,24 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use Illuminate\Routing\Router;
 
-Route::get('/', function () {
-    return view('welcome');
+/** @var Router $router */
+
+$router->group(['prefix' => 'api', 'namespace' => 'Api', 'middleware' => 'api'], function (Router $router) {
+
 });
+
+$router->group(['namespace' => 'Web'], function (Router $router) {
+    $router->group(['middleware' => 'web'], function (Router $router) {
+        $router->get('/', function() {
+            return view('welcome');
+        });
+    });
+
+    $router->group(['middleware' => 'auth'], function (Router $router) {
+
+    });
+});
+
+
+//garrinar()->router()->grid([]);
